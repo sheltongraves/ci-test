@@ -13,12 +13,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Pull Docker Image
-      run: docker pull node:14
 
+    # Build the Docker image based on your Dockerfile
+    - name: Build Docker Image
+      run: docker build -t my-node-app .
+
+    # Run the application inside the built Docker container
     - name: Run Application Inside Docker
       run: |
-        docker run --name my-node-container -d node:14
-        docker cp . my-node-container:/app
-        docker exec my-node-container node /app/index.js
+        docker run --name my-node-container -d my-node-app
+        docker exec my-node-container node /usr/src/app/index.js
